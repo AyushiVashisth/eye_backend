@@ -5,6 +5,16 @@ const menRouter = express.Router();
 
 menRouter.use(express.json());
 
+
+menRouter.get("/show", async (req, res) => {
+  try {
+    const carts = await MenModel.find();
+    res.status(200).send(carts);
+  } catch (error) {
+    console.log(err);
+    res.status(500).send({ err: "Something went wrong" });
+  }
+});
 menRouter.get("/", async (req, res) => {
   const query = {};
   if (req.query.rating) {

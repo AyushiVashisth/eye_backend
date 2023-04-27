@@ -2,6 +2,15 @@ const express = require("express");
 const { CartModel } = require("../models/cart.model");
 const cartRouter = express.Router();
 
+cartRouter.get("/show", async (req, res) => {
+  try {
+    const carts = await CartModel.find();
+    res.status(200).send(carts);
+  } catch (error) {
+    console.log(err);
+    res.status(500).send({ err: "Something went wrong" });
+  }
+});
 cartRouter.get("/", async (req, res) => {
   let query = req.query;
   try {

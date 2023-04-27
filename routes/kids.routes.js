@@ -5,6 +5,16 @@ const kidstRouter = express.Router();
 
 kidstRouter.use(express.json());
 
+
+kidstRouter.get("/show", async (req, res) => {
+  try {
+    const carts = await KidsModel.find();
+    res.status(200).send(carts);
+  } catch (error) {
+    console.log(err);
+    res.status(500).send({ err: "Something went wrong" });
+  }
+});
 kidstRouter.get("/", async (req, res) => {
   const query = {};
   if (req.query.rating) {

@@ -4,7 +4,15 @@ const { WomenModel } = require("../models/women.model");
 const womenRouter = express.Router();
 
 womenRouter.use(express.json());
-
+womenRouter.get("/show", async (req, res) => {
+  try {
+    const carts = await WomenModel.find();
+    res.status(200).send(carts);
+  } catch (error) {
+    console.log(err);
+    res.status(500).send({ err: "Something went wrong" });
+  }
+});
 womenRouter.get("/", async (req, res) => {
   const query = {};
   if (req.query.rating) {

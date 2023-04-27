@@ -4,7 +4,15 @@ const { ProductModel } = require("../models/product.model");
 const productRouter = express.Router();
 
 productRouter.use(express.json());
-
+productRouter.get("/show", async (req, res) => {
+  try {
+    const carts = await ProductModel.find();
+    res.status(200).send(carts);
+  } catch (error) {
+    console.log(err);
+    res.status(500).send({ err: "Something went wrong" });
+  }
+});
 productRouter.get("/", async (req, res) => {
   const query = {};
   if (req.query.rating) {

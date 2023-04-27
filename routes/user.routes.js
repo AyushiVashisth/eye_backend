@@ -3,7 +3,15 @@ const userRouter=express.Router()
 const {UserModel}= require("../models/user.model")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+userRouter.get("/show", async (req, res) => {
+  try {
+    const carts = await UserModel.find();
+    res.status(200).send(carts);
+  } catch (error) {
+    console.log(err);
+    res.status(500).send({ err: "Something went wrong" });
+  }
+});
 userRouter.get("/", async (req, res) => {
   let query = req.query;
   try {
